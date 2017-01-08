@@ -9,26 +9,20 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class StudentServiceImpl implements StudentService {
-    private int i  = 1;
-
     @Override
     public List<Student> getAllStudents() {
-        return getStudents();
-    }
-
-    private List<Student> getStudents() {
         List<Student> students = new ArrayList<>();
 
         for(int i = 0 ; i < 10 ; i++) {
-            students.add(getStudent());
+            students.add(getStudentFromAPI(i));
         }
 
         return students;
     }
 
-    private Student getStudent() {
+    private Student getStudentFromAPI(int studentNumber) {
         sleep();
-        return new Student("student " + i++);
+        return new Student("student " + studentNumber);
     }
 
     private void sleep() {
