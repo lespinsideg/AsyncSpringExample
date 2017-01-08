@@ -7,7 +7,6 @@ import java.util.concurrent.TimeUnit;
 
 @Service
 public class ObservableStudentServiceImpl implements ObservableStudentService {
-    private int i = 1;
     @Override
     public Observable<Student> getAllStudents() {
         return getStudents();
@@ -16,16 +15,16 @@ public class ObservableStudentServiceImpl implements ObservableStudentService {
     private Observable<Student> getStudents() {
         return Observable.create(s -> {
             for(int i = 0 ; i < 10 ; i++) {
-                s.onNext(getStudent());
+                s.onNext(getStudentFromAPI(i));
             }
 
             s.onComplete();
         });
     }
 
-    private Student getStudent() throws Exception {
+    private Student getStudentFromAPI(int studentNumber) throws Exception {
         sleep();
-        return new Student("student " + i++);
+        return new Student("student " + studentNumber);
     }
 
     private void sleep() {
