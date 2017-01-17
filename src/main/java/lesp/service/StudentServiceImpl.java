@@ -1,5 +1,6 @@
 package lesp.service;
 
+import io.reactivex.Observable;
 import lesp.vo.Student;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,19 @@ public class StudentServiceImpl implements StudentService {
         }
 
         return students;
+    }
+
+    @Override
+    public Observable<Student> getAllStudentsObservable() {
+        Observable<Student> observable = Observable.create(e -> {
+            for(int i =0  ; i < 10 ; i++) {
+                e.onNext(getStudentFromAPI(i));
+            }
+
+            e.onComplete();
+        });
+
+        return observable;
     }
 
     private Student getStudentFromAPI(int studentNumber) {
